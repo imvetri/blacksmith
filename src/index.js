@@ -9,6 +9,8 @@ import "./Index/index.css";
 // Components.
 
 import Events from "./Events";
+
+import Tags from "./Tags"
 import Builder from "./Builder";
 import DynamicComponent from "./DynamicComponent";
 

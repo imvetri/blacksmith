@@ -4,9 +4,9 @@ import React, { Component } from "react";
 
 import "./Style.css"
 
-import Nodes from "../../utilities/Components/Nodes";
+import Nodes from "../utilities/Components/Nodes";
 
-import { getNodeTree } from "../../utilities/get-node-tree.js";
+import { getNodeTree } from "../utilities/get-node-tree.js";
 
 
 class Tags extends Component {
