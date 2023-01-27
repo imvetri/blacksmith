@@ -8,7 +8,6 @@ import "./Index/index.css";
 
 // Components.
 
-import Events from "./Events";
 
 import Tags from "./Tags"
 import Builder from "./Builder";
@@ -24,7 +23,6 @@ import { updateEvent, updateConfig, saveElement, updateSelectedComponent } from 
 
 // Utils
 import { readData, writeData } from "./utilities/Storage";
-import {onDeleteComponent, onDeleteFolder, onExtendComponent} from "./Components/Events";
 
 class Index extends Component {
     constructor(props) {
@@ -105,53 +103,14 @@ class Index extends Component {
         console.log(Object.values(uniqueComponents).map(convertToReactRedux).join("\n\n"))
     }
 
-    onShowContextMenu(e){
-        
-        if(e.target.classList.contains("component") || e.target.classList.contains("componentName")) { // check if it is a component.
-            this.state.contextMenuChildren = <ul className="contextMenuOptions">
-                <li onClick={onDeleteComponent.bind(this)}><i className="fas fa-trash"></i>Delete</li>
-                <li onClick={this.exportReact.bind(this)}><i className="fas fa-file-export"></i>Export</li>
-                <li onClick={this.exportReactRedux.bind(this)}><i className="fas fa-copy"></i>Export ReactJS + Redux</li>
-                <li onClick={onExtendComponent.bind(this)}><i className="fas fa-copy"></i>Extend</li>
-            </ul>;
-        }
-        else if(e.target.classList.contains("fa-folder-open") || e.target.classList.contains("fa-folder")) {// check if it is a folder.
-            let folderName = e.target.parentElement.getAttribute("data-folder-name");
 
-            this.state.contextMenuChildren =  <ul className="contextMenuOptions">
-            <li onClick={onDeleteFolder.bind(this, "FOLDER_RETAIN_CONTENTS", folderName)}>Delete folder and retain contents</li>
-            <li onClick={onDeleteFolder.bind(this, "RETAIN_FOLDER_DELETE_CONTENTS",folderName)}>Keep Folder and delete contents</li>
-            <li onClick={onDeleteFolder.bind(this, "ENTIRE_FOLDER",folderName)}>Delete Folder and contents</li>
-            <li onClick={this.openExportTab.bind(this)}>Export Folder</li>
-        </ul>;
-
-        }
-         
-        this.setState({
-            showContextMenu:true,
-            contextMenuPosition: {
-                top: `${e.clientY}px`,
-                left: `${e.clientX}px`
-            }
-        })
-
-        e.preventDefault();
-    }
-
-    hideContextMenu(){
-        if(this.state.showContextMenu){
-            this.setState({
-                showContextMenu: false
-            })
-        }
-    }
 
     render() {
         const selectedComponent = this.state.selectedComponent || this.state.component;
         const randomKey = Math.ceil(Math.random() * 1000);
         window.components.forEach(initialiseComponents)
         return (
-            <div onContextMenu={this.onShowContextMenu.bind(this)} onClick={this.hideContextMenu.bind(this)}>
+            <div >
 
                 <Builder onSave={this.saveElement.bind(this)}/>
                 <DynamicComponent onSave={this.props.onSave} key={randomKey} component={selectedComponent}/>
