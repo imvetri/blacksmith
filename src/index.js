@@ -8,18 +8,9 @@ import "./Index/index.css";
 
 // Components.
 
-import Components from "./Components";
 import Events from "./Events";
-import Assets from "./Assets";
-import History from "./History";
-import DynamicComponent from "./DynamicComponent";
 import Builder from "./Builder";
-import Preview from "./Preview";
-
-import Markup from './Markup';
-import Style from  "./Style";
-import State from "./State";
-import Composer from "./Composer";
+import DynamicComponent from "./DynamicComponent";
 
 // Utility components.
 
@@ -32,9 +23,6 @@ import { updateEvent, updateConfig, saveElement, updateSelectedComponent } from 
 // Utils
 import { readData, writeData } from "./utilities/Storage";
 import {onDeleteComponent, onDeleteFolder, onExtendComponent} from "./Components/Events";
-
-// Constants
-import { CONSTANTS } from "./utilities/Constants"; 
 
 class Index extends Component {
     constructor(props) {
@@ -162,41 +150,10 @@ class Index extends Component {
         window.components.forEach(initialiseComponents)
         return (
             <div onContextMenu={this.onShowContextMenu.bind(this)} onClick={this.hideContextMenu.bind(this)}>
-                <Preview></Preview>
-                <Markup markup={selectedComponent.markup} key={randomKey}></Markup>
-                <Style style={selectedComponent.style} key={randomKey}></Style>
-                <State state={selectedComponent.state} key={randomKey}></State>
-                <Composer state={selectedComponent.state}></Composer>
-                <div className="leftItem">
-                    <Components
-                        components={this.state.components}
-                        folders={this.state.folders}
-                        selectedComponent={this.state.selectedComponent}
-                        title="Components"
-                        showControls={true}
-                        key={randomKey}
 
-                        onOpenEditor={this.openEditor.bind(this)}
-                        onSelection={this.updateSelectedComponent}
-                        onFoldersUpdate={this.updateFolders.bind(this)}
-                    />
-                </div>
                 <Builder onSave={this.saveElement.bind(this)}/>
                 <DynamicComponent onSave={this.props.onSave} key={randomKey} component={selectedComponent}/>
 
-                <Events
-                key={randomKey}
-                component={selectedComponent}
-                selectedTag={this.state.selectedTag}
-                components={this.state.components}
-                onEventsUpdate={this.updateEvent}
-                onConfigUpdate={this.updateConfig}
-                title="Events"
-            />
-            <History 
-                title="History"/>
-            <Assets 
-                title="Assets"/>
 
             </div>
         );

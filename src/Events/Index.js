@@ -10,7 +10,6 @@ import React, { Component } from "react";
 import Configurator from "./Configurator";
 import Tags from "./Tags"
 import Reducer from  "./Event/Reducers/Reducer";
-import Window from "../Window";
 
 
 // Styles.
@@ -126,7 +125,6 @@ class Events extends Component {
 
 
             return (
-                <Window>
                 <ul className="container events-tab">
                     <Tags component={component} onSelectedTagChanged={selectedTagChanged.bind(this)} />
                     {configurator}
@@ -155,7 +153,6 @@ class Events extends Component {
                         </div>
                     </div>
                 </ul>
-                </Window>
             );
     }
 }
